@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Petrona&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+         /* ===== Global ===== */
+
+        body {
+             margin: 0;
+             font-family: 'Petrona', sans-serif;
+             background-color: #FFFFFF;
+             color: #fff;
+             
+         }
+         html {
+             scroll-behavior: smooth;
+         }
+         .navbar {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 20px 40px;
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             z-index: 100;
+         }
+         .logo {
+             font-size: 2em;
+             font-weight: 700;
+             color: #fff;
+             letter-spacing: 2px;
+         }
+         .nav-links ul {
+             list-style: none;
+             display: flex;
+             margin: 0;
+             padding: 0;
+             gap: 20px;
+             position: absolute; /* position it over navbar */
+             left: 31%;      /* move left edge to center */
+         }
+         .nav-links li {
+             margin: 0 15px;
+         }
+         .nav-links a {
+             color: #fff;
+             text-decoration: none;
+             font-weight: 400;
+             font-size: 0.9em;
+             letter-spacing: 1px;
+             position: relative;
+             padding-bottom: 5px;
+             transition: color 0.3s ease;
+         }
+         .nav-links a:hover::after {
+             width: 100%;
+         }
+         .nav-links a::after {
+             content: '';
+             position: absolute;
+             width: 0;
+             height: 2px;
+             bottom: 0;
+             left: 0;
+             background-color: #fff;
+             transition: width 0.3s ease;
+         }
+         .nav-icons a {
+             color: #fff;
+             text-decoration: none;
+             font-size: 1.1em;
+             margin-left: 25px;
+             transition: color 0.3s ease;
+         }
+         .hero {
+             position: relative;
+             height: 100vh;
+             width: 100%;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             overflow: hidden;
+             background: linear-gradient(to right, rgba(26, 26, 26, 0.7), rgba(0, 0, 0, 0.7)),    
+                         url("img/background.jpg") no-repeat center center;
+             background-size: cover;
+             background-position: center 5%; /* Pushes image down */
+         }
+         .background-text {
+             font-family: 'Petrona', sans-serif;
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
+             pointer-events: none;
+             opacity: 0.1;
+             overflow: hidden;
+         }
+         .bg-text {
+             font-size: 20vw;
+             font-weight: 700;
+             color: #fff;
+             line-height: 0.8;
+             letter-spacing: 10px;
+             position: absolute;
+             transform: rotate(-10deg) translate(-50%, -50%);
+             top: -50%;
+             left: -20%;
+         }
+
+         .bg-text:nth-child(2) {
+             top: 50%;
+             left: 0;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+         .bg-text:nth-child(3) {
+             top: 150%;
+             left: 50%;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+         .bg-text:nth-child(4) {
+             top: 50%;
+             left: 100%;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+         .bg-text:nth-child(5) {
+             top: 150%;
+             left: 150%;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+
+/* ===== Shop Section ===== */
+.shop-section {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.hoodie-top {
+    width: 100%;
+    height: 553px;
+    object-fit: cover;
+    object-position: center -200px;
+    display: block;
+}
+
+.shop-container {
+    position: absolute;
+    top: -20%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.shop-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.shop-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+.product:hover {
+    transform: translateY(-5px);
+}
+.product img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.product h3 {
+    margin-bottom: 5px;
+    color: #000;
+}
+.product p {
+    font-weight: bold;
+    color: #333;
+}
+
+/* ===== Newsletter ===== */
+.newsletter {
+    background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.8)),
+                url('img/image.png') center/cover no-repeat;
+    color: #fff;
+    padding: 150px 10%;
+    margin-top: -574px;
+}
+
+.newsletter-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.newsletter-text {
+    flex: 1;
+}
+.newsletter-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.newsletter-text p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.newsletter-form input {
+    font-family: 'Young Serif', serif;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    width: 250px;
+}
+.newsletter-form button {
+    font-family: 'Young Serif', serif;
+    padding: 12px 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* ===== Footer ===== */
+.footer {
+    position: relative; 
+    background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.8)),
+                url('img/background.jpg') center/cover no-repeat;
+    color: #fff;
+    padding: 50px 10%;
+    font-family: 'Abhaya Libre', serif;
+    background-position: center 3%;
+}
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+.footer-logo h3 {
+    font-size: 2rem;
+}
+.social-icons a {
+    color: #fff;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+.footer-links {
+    display: flex;
+    gap: 90px;
+}
+.footer-links h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+.footer-links a {
+    display: block;
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    text-decoration: none;
+}
+.footer-bottom {
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+/* Footer background text */
+.footer .background-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    opacity: 0.05;
+    pointer-events: none;
+}
+.footer .bg-text {
+    font-size: 20vw;
+    font-weight: bold;
+    margin: 20px;
+    color: #fff;
+    white-space: nowrap;
+}
+.footer-top,
+.footer-bottom {
+    position: relative;
+    z-index: 1;
+}
+
+ /* Hide Hamburger and Close Icon by default on desktop */
+         .hamburger, .close-menu {
+             display: none;
+         }
+        
+         /* On Desktop, make nav-links a flex container to align the ul and icons */
+         .nav-links {
+             display: flex;
+             align-items: center;
+         }
+        
+         /* Popup directly under button */
+         .popup-inline {
+             display: none;
+             margin-top: 8px;
+             background: black;
+             color: white;
+             padding: 12px 20px;
+             border-radius: 4px;
+             font-size: 0.9rem;
+             text-align: center;
+             width: fit-content; /* adjust to content size */
+             animation: fadeIn 0.3s ease;
+         }
+
+         /* Fade animation */
+         @keyframes fadeIn {
+             from { opacity: 0; transform: translateY(-4px); }
+             to { opacity: 1; transform: translateY(0); }
+         }
+
+
+
+.product {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-icons {
+    position: absolute;
+    top: 25px; /* lower than before */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center; /* center the icon group */
+    gap: 120px; /* closer together */
+    opacity: 0; /* hidden by default */
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.product-icons a {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.product-icons a:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* Show icons only on hover */
+.product:hover .product-icons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-detail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(425px, 1fr));
+    gap: 150px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.95);
+    padding: 90px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+
+    position: absolute;
+    top: -620px;
+    left: 30%;
+    transform: translateX(-50%);
+    z-index: 10;
+    position: relative;
+}
+
+/* Back Button */
+.back-btn {
+    font-family: 'Petrona', sans-serif;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: black;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+.back-btn:hover {
+    background: #444;
+}
+
+.product-img-container {
+    position: relative;
+}
+.product-img-container img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Arrows */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+.arrow:hover { background: rgba(0,0,0,0.7); }
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    font-size: 1.05rem;
+    color: #000;
+}
+
+.cart-link {
+    position: relative;
+}
+
+#cart-count {
+    background: white;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+}
+
+    /* ===== RESPONSIVE STYLES ====== */
+        @media (max-width: 1024px) {
+            .product-icons {
+                gap: 145px; /* closer together */
+            }
+        }
+
+         /* For Tablets and smaller devices (up to 992px) */
+         @media (max-width: 992px) {
+             /* FIXED: Changed .product-grid to .products-grid and set to 2 columns */
+             .products-grid {
+                 grid-template-columns: repeat(2, 1fr);
+             }
+             .footer-links {
+                 gap: 40px;
+             }
+             /* ⭐️ ADDED: Improved layout for shop section on tablets */
+             .hoodie-top {
+                height: 400px;
+                object-position: center -100px;
+             }
+             .shop-container {
+                margin-top: -300px;
+                width: 95%;
+             }
+             .product-icons {
+                gap: 277px; /* closer together */
+            }
+
+
+            .product-detail {
+    /* Change to a flex column layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Adjust padding for smaller screens */
+    gap: 0; /* Remove gap from the grid layout */
+    max-width: 95%; /* Make it slightly smaller to have a margin */
+    margin: 0 auto 0 20%;
+  }
+
+  .product-img-container,
+  .product-info {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .product-img-container img {
+    height: auto; /* Allow the height to adjust based on the image's aspect ratio */
+    max-width: 100%; /* Ensure the image doesn't overflow its container */
+  }
+
+  /* Center the back button */
+  .back-btn {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-bottom: 20px;
+  }
+
+  /* Center the product information content */
+  .product-info {
+    text-align: center;
+  }
+         }
+
+         /* For Mobile devices (up to 768px) */
+         @media (max-width: 768px) {
+             .navbar {
+                 padding: 15px 20px;
+             }
+             .content-box {
+                 width: 90%;
+                 left: 50%;
+                 top: 60%;
+             }
+             .footer .background-text {
+                 display: none;
+             }
+            
+             /* ADDED: Further improvements for mobile */
+             .hoodie-top {
+                height: 250px;
+                object-position: center; /* Center the image */
+             }
+             .shop-container {
+                margin-top: -985px; /* Less overlap on small screens */
+                width: 100%;
+                padding: 15px;
+             }
+             
+
+
+             
+             
+
+             /* --- MOBILE NAVIGATION --- */
+             .hamburger, .close-menu {
+                 display: block;
+                 cursor: pointer;
+                 font-size: 24px;
+                 z-index: 1001;
+             }
+            
+            
+             /* Make the nav container a slide-out menu */
+             .nav-links {
+                 position: fixed;
+                 top: 0;
+                 right: -100%;
+                 width: 70%;
+                 max-width: 280px;
+                 height: 100vh;
+                 background: #fff;
+                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                 transition: right 0.4s ease-in-out;
+                 z-index: 1000;
+                 display: flex;
+                 flex-direction: column;
+                 align-items: flex-start;
+                 padding: 20px;
+             }
+             .nav-links.active {
+                 right: 0;
+             }
+
+             .close-menu {
+                 align-self: flex-end; /* Position X to the top right */
+                 color: #000;
+                 font-size: 28px;
+             }
+            
+             /* Style the list of text links */
+             .nav-links ul {
+                 flex-direction: column;
+                 width: 100%;
+                 margin-top: 20px;
+                 /*position: static;  Remove absolute positioning */
+             }
+             .nav-links li {
+                 margin: 15px 0;
+                 margin-left: -60px;
+             }
+             .nav-links a {
+                 color: #000;
+                 font-size: 1.1em;
+             }
+             .nav-links a::after {
+                 background-color: #000;
+             }
+            
+
+             /* Style the icons container inside the menu */
+             .nav-links .nav-icons {
+                 margin-top: 400px;
+                 padding-top: 20px;
+                 border-top: 1px solid #eee;
+                 width: 100%;
+                 display: flex;
+                 justify-content: flex-start;
+             }
+            
+             /* Style the icons themselves */
+             .nav-links .nav-icons a {
+                 color: #000;
+                 font-size: 1.5em; /* Make icons bigger */
+                 margin-left: 0;
+                 margin-right: 30px; /* Space them out */
+             }
+             #cart-count {
+                 color: #fff;
+                 background: #000;
+             }
+            
+             /* --- OTHER SECTIONS --- */
+             .product-icons {
+                gap: 275px; /* closer together */
+            }
+             .image-row, .footer-top, .footer-bottom {
+                 flex-direction: column;
+                 text-align: center;
+                 align-items: center;
+             }
+             .product img {
+                 width: 100%;
+                 height: 160px;
+                 background-size: cover;
+                 background-position: center;
+             }
+             .newsletter-content {
+                 flex-direction: column;
+                 text-align: center;
+             }
+             .newsletter-form input, .newsletter-form button {
+                 width: 100%;
+             }
+             .footer-links {
+                 flex-direction: column;
+                 gap: 30px;
+                 width: 100%;
+                 align-items: center;
+             }
+         }
+          /* For Mobile devices (up to 425px) */
+         @media (max-width: 425px) {
+            .product-icons {
+                gap: 105px; /* closer together */
+            }
+         }
+         /* For Mobile devices (up to 375px) */
+         @media (max-width: 375px) {
+            .product-icons {
+                gap: 80px; /* closer together */
+            }
+         }
+          /* For Mobile devices (up to 320px) */
+         @media (max-width: 320px) {
+            .product-icons {
+                gap: 55px; /* closer together */
+            }
+         }
+
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">A&A</div>
+
+        <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+        
+        <nav class="nav-links">
+            <span class="close-menu"><i class="fa-solid fa-xmark"></i></span>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="shop.html?category=hoodies">HOODIES</a></li>
+                <li><a href="shop.html?category=tshirts">T-SHIRTS</a></li>
+                <li><a href="shop.html?category=accessories">ACCESSORIES</a></li>
+                <li><a href="shop.html?category=jackets">JACKETS</a></li>
+            </ul>
+            
+            <div class="nav-icons">
+                <a href="Login.php"><i class="fa-regular fa-user"></i></a>
+                <a href="favorites.php"><i class="fa-regular fa-heart"></i></a>
+                <a href="cart.php" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <main class="hero">
+        <div class="background-text">
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+        </div>
+    </main>
+
+    <div class="product-detail">
+    <!-- Back button -->
+    <button class="back-btn" onclick="window.location.href='shop.html'">← Back to Shop</button>
+
+    <div class="product-img-container">
+        <img id="product-img" src="" alt="Product Image">
+
+        <!-- Arrows 
+        <button class="arrow left" onclick="prevImage()">&#10094;</button>
+        <button class="arrow right" onclick="nextImage()">&#10095;</button>-->
+    </div>
+
+    <div class="product-info">
+        <h2 id="product-name"></h2>
+        <p><strong>Brand:</strong> <span id="product-brand"></span></p>
+        <p><strong>Price:</strong> $<span id="product-price"></span></p>
+        <p><strong>Size:</strong> <span id="product-size"></span></p>
+        <p><strong>Color:</strong> <span id="product-color"></span></p>
+        <p><strong>Material:</strong> <span id="product-material"></span></p>
+    </div>
+</div>
+
+<script>
+    // Example product data with multiple images
+    const products2 = [
+        {
+            id: 1,
+            name: 'Rebel Denim Jacket',
+            brand: 'Denim',
+            price: 59,
+            size: 'S , M , L , XL',
+            color: 'Blue',
+            material: '100% Cotton',
+            images: ['img/jackets/jacket1.jpg','img/jackets/jacket2.jpg']
+        },
+        {
+            id: 2,
+            name: 'Cool T-Shirt',
+            brand: 'Brand B',
+            price: 45,
+            size: 'S , M , L , XL , XXL',
+            color: 'Black',
+            material: 'Polyester',
+            images: ['img/tshirt/5tshirt1.jpg','img/tshirt/5tshirt2.jpg'] 
+        },
+        {
+            id: 3,
+            name: 'Stylish Hoodie',
+            brand: 'Brand B',
+            price: 49,
+            size: 'S , M , L , XL',
+            color: 'Grey',
+            material: '80% Cotton / 20% Polyester',
+            images: ['img/hoodies/2hoodies1.jpg','img/hoodies/2hoodies2.jpg','img/hoodies/2hoodies3.jpg','img/hoodies/2hoodies4.jpg','img/hoodies/2hoodies5.jpg',] 
+        },
+        {
+            id: 4,
+            name: 'UrbanShield Jacket',
+            brand: 'Windbreaker',
+            price: 75,
+            size: 'M , L , XL , XXL',
+            color: 'Grey',
+            material: '100% Lightweight Nylon',
+            images: ['img/jackets/3jacket1.jpg','img/jackets/3jacket2.jpg','img/jackets/3jacket3.jpg'] 
+        },
+        {
+            id: 5,
+            name: 'Trendy Hoodie',
+            brand: 'Brand B',
+            price: 39,
+            size: 'S , M , L , XL',
+            color: 'White',
+            material: '80% Cotton / 20% Polyester',
+            images: ['img/hoodies/3hoodies1.jpg','img/hoodies/3hoodies2.jpg','img/hoodies/3hoodies3.jpg'] 
+        },
+        {
+            id: 6,
+            name: 'WinterGuard Jacket',
+            brand: 'Brand B',
+            price: 119,
+            size: 'S , M , L , XL , XXL',
+            color: 'Brown',
+            material: 'Polyester',
+            images: ['img/jackets/2jacket1.jpg','img/jackets/2jacket2.jpg','img/jackets/2jacket3.jpg'] 
+        },
+        {
+            id: 7,
+            name: 'CozyWear Hoodie',
+            brand: 'Fleece',
+            price: 49,
+            size: 'S , M , L , XL , XXL',
+            color: 'Brown',
+            material: '80% Cotton / 20% Polyester',
+            images: ['img/hoodies/1hoodies1.jpg','img/hoodies/1hoodies2.jpg','img/hoodies/1hoodies3.jpg'] 
+        },
+        {
+            id: 8,
+            name: 'CoolFit T-Shirt',
+            brand: 'Brand B',
+            price: 35,
+            size: 'S , M , L , XL , XXL',
+            color: 'Black',
+            material: '100% Cotton',
+            images: ['img/tshirt/4tshirt1.jpg','img/tshirt/4tshirt2.jpg','img/tshirt/4tshirt3.jpg'] 
+        },
+        {
+            id: 9,
+            name: 'UrbanEdge T-Shirt',
+            brand: 'Brand B',
+            price: 45,
+            size: 'S , M , L , XL , XXL',
+            color: 'Black',
+            material: '60% Cotton / 40% Polyester',
+            images: ['img/tshirt/2tshirt1.jpg','img/tshirt/2tshirt2.jpg','img/tshirt/2tshirt3.jpg'] 
+        },
+        {
+            id: 10,
+            name: 'StreetVision Sunglasses',
+            brand: 'Brand B',
+            price: 25,
+            size: '52-18-140 mm (Medium Fit)',
+            color: 'White',
+            material: '100% Plastic Frame / Polarized Lenses',
+            images: ['img/accessories/3glasses1.jpg','img/accessories/3glasses2.jpg','img/accessories/3glasses3.jpg'] 
+        },
+        {
+            id: 11,
+            name: 'UrbanEdge Jacket',
+            brand: 'Bomber',
+            price: 45,
+            size: 'M , L , XL , XXL',
+            color: 'Black',
+            material: '100% Nylon',
+            images: ['img/jackets/5jacket1.jpg','img/jackets/5jacket2.jpg','img/jackets/5jacket3.jpg','img/jackets/5jacket4.jpg'] 
+        },
+        {
+            id: 12,
+            name: 'Summer T-Shirt',
+            brand: 'Brand B',
+            price: 45,
+            size: 'S , M , L , XL , XXL',
+            color: 'Black',
+            material: 'Polyester',
+            images: ['img/tshirt/3tshirt1.jpg','img/tshirt/3tshirt2.jpg'] 
+        },
+        {
+            id: 13,
+            name: 'NightRider Jacket',
+            brand: 'Brand B',
+            price: 45,
+            size: 'M , L , XL , XXL',
+            color: 'Black',
+            material: '100% Genuine Leather',
+            images: ['img/jackets/6jacket1.jpg','img/jackets/6jacket2.jpg'] 
+        },
+        {
+            id: 14,
+            name: 'UrbanEdge Sunglasses',
+            brand: 'Brand B',
+            price: 29,
+            size: '52-18-140 mm (Medium Fit)',
+            color: 'Black',
+            material: '100% Stainless Steel Frame',
+            images: ['img/accessories/1glasses1.jpg','img/accessories/1glasses2.jpg'] 
+        },
+        {
+            id: 15,
+            name: 'UrbanPulse Hoodie',
+            brand: 'Brand B',
+            price: 39,
+            size: 'S , M , L , XL , XXL',
+            color: 'Black',
+            material: '70% Cotton / 30% Recycled Polyester',
+            images: ['img/hoodies/4hoodies1.jpg','img/hoodies/4hoodies2.jpg','img/hoodies/4hoodies3.jpg','img/hoodies/4hoodies4.jpg'] 
+        },
+        {
+            id: 16,
+            name: 'Skyline Jacket',
+            brand: 'Brand B',
+            price: 89,
+            size: 'S , M , L , XL , XXL',
+            color: 'Black',
+            material: '100% Nylon',
+            images: ['img/jackets/4jacket1.jpg','img/jackets/4jacket2.jpg','img/jackets/4jacket3.jpg','img/jackets/4jacket4.jpg'] 
+        },
+        {
+            id: 17,
+            name: 'CozyBeanie Hat',
+            brand: 'Brand B',
+            price: 20,
+            size: 'M , L , XL',
+            color: 'Brown',
+            material: '100% Wool',
+            images: ['img/accessories/1hat1.jpg','img/accessories/1hat2.jpg','img/accessories/1hat3.jpg','img/accessories/1hat4.jpg'] 
+        },
+        {
+            id: 18,
+            name: 'UrbanEdge Chain',
+            brand: 'Brand B',
+            price: 25,
+            size: '55-60 cm',
+            color: 'Gold',
+            material: '100% Stainless Steel',
+            images: ['img/accessories/1accessories1.jpg','img/accessories/1accessories2.jpg'] 
+        },
+        {
+            id: 19,
+            name: 'RetroRound Glasses',
+            brand: 'Brand B',
+            price: 20,
+            size: '52-18-140 mm (Medium Fit)',
+            color: 'Silver',
+            material: '100% Plastic Frame / Polarized Lenses',
+            images: ['img/accessories/2glasses1.jpg','img/accessories/2glasses2.jpg','img/accessories/2glasses3.jpg'] 
+        },
+        {
+            id: 20,
+            name: 'Classic Hat',
+            brand: 'Brand B',
+            price: 19,
+            size: 'M , L , XL',
+            color: 'White',
+            material: '100% Polyester',
+            images: ['img/accessories/2hat1.jpg','img/accessories/2hat2.jpg','img/accessories/2hat3.jpg','img/accessories/2hat4.jpg'] 
+        },
+    ];
+
+    // Get product ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('id'));
+
+    // Find product
+    const product = products2.find(p => p.id === productId);
+
+    let currentImageIndex = 0;
+
+    function showImage() {
+        document.getElementById('product-img').src = product.images[currentImageIndex];
+    }
+
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % product.images.length;
+        showImage();
+    }
+
+    function prevImage() {
+        currentImageIndex = (currentImageIndex - 1 + product.images.length) % product.images.length;
+        showImage();
+    }
+
+    // Display product if found
+    if (product) {
+        showImage();
+        document.getElementById('product-name').textContent = product.name;
+        document.getElementById('product-brand').textContent = product.brand;
+        document.getElementById('product-price').textContent = product.price;
+        document.getElementById('product-color').textContent = product.color;
+        document.getElementById('product-material').textContent = product.material;
+        document.getElementById('product-size').textContent = product.size;
+
+       // Only add arrows if more than 1 image
+        if (product.images.length > 1) {
+            const container = document.querySelector('.product-img-container');
+            container.insertAdjacentHTML("beforeend", `
+                <button class="arrow left" onclick="prevImage()">&#10094;</button>
+                <button class="arrow right" onclick="nextImage()">&#10095;</button>
+            `);
+        }
+    } else {
+        document.querySelector('.product-info').innerHTML = "<p>Product not found.</p>";
+    }
+</script>
+
+
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <div class="newsletter-text">
+                <h2>Get 20% OFF on your first purchase</h2>
+                <p>Sign up for our newsletter and never miss any offers</p>
+            </div>
+            <form id="newsletter-form" class="newsletter-form" action="newsletter.php" method="post">
+            <input type="email" name="email" placeholder="Your email address" required>
+            <button type="submit">SUBSCRIBE NOW</button>
+        </form>
+            <div id="subscribe-popup" class="popup-inline">You subscribed!</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="background-text">
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+        </div>
+        <div class="footer-top">
+            <div class="footer-logo">
+                <h3>A&A</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div>
+                    <h4>QUICK LINKS</h4>
+                    <a href="#">Home</a>
+                    <a href="#">About us</a>
+                    <a href="#">Offers</a>
+                    <a href="#">Services</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div>
+                    <h4>ABOUT</h4>
+                    <a href="#">How It Work</a>
+                    <a href="#">Our Packages</a>
+                    <a href="#">Promotions</a>
+                    <a href="#">Refer A Friend</a>
+                </div>
+                <div>
+                    <h4>HELP CENTER</h4>
+                    <a href="#">Payments</a>
+                    <a href="#">Shipping</a>
+                    <a href="#">Product Returns</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Check out</a>
+                    <a href="#">Other Issues</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 A&A. All rights reserved.</p>
+            <p>Designed & Developed by <strong>Amar Abdurrahmani</strong></p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+
+    <script>  
+    const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        const closeMenu = document.querySelector(".close-menu");
+        
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.add("active");
+        });
+
+        closeMenu.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+        });
+
+
+    document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+        e.preventDefault(); // Prevent page reload
+
+        const formData = new FormData(this);
+
+        fetch("newsletter.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const popup = document.getElementById("subscribe-popup");
+            if (data.status === "success") {
+                popup.textContent = data.message;
+                popup.style.display = "block";
+                setTimeout(() => { popup.style.display = "none"; }, 3000);
+                this.reset(); // clear input
+            } else {
+                popup.textContent = data.message;
+                popup.style.display = "block";
+                setTimeout(() => { popup.style.display = "none"; }, 3000);
+            }
+        })
+        .catch(err => console.error(err));
+    });
+
+    
+    </script>
+
+    
+</body>
+</html>
+

@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - A&A</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Petrona&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* ===== Global ===== */
+         body {
+             margin: 0;
+             font-family: 'Petrona', sans-serif;
+             background-color: #FFFFFF;
+             color: #fff;
+             
+         }
+         html {
+             scroll-behavior: smooth;
+         }
+         .navbar {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 20px 40px;
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             z-index: 100;
+         }
+         .logo {
+             font-size: 2em;
+             font-weight: 700;
+             color: #fff;
+             letter-spacing: 2px;
+         }
+         .nav-links ul {
+             list-style: none;
+             display: flex;
+             margin: 0;
+             padding: 0;
+             gap: 20px;
+             position: absolute; /* position it over navbar */
+             left: 31%;      /* move left edge to center */
+         }
+         .nav-links li {
+             margin: 0 15px;
+         }
+         .nav-links a {
+             color: #fff;
+             text-decoration: none;
+             font-weight: 400;
+             font-size: 0.9em;
+             letter-spacing: 1px;
+             position: relative;
+             padding-bottom: 5px;
+             transition: color 0.3s ease;
+         }
+         .nav-links a:hover::after {
+             width: 100%;
+         }
+         .nav-links a::after {
+             content: '';
+             position: absolute;
+             width: 0;
+             height: 2px;
+             bottom: 0;
+             left: 0;
+             background-color: #fff;
+             transition: width 0.3s ease;
+         }
+         .nav-icons a {
+             color: #fff;
+             text-decoration: none;
+             font-size: 1.1em;
+             margin-left: 25px;
+             transition: color 0.3s ease;
+         }
+         .hero {
+             position: relative;
+             height: 100vh;
+             width: 100%;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             overflow: hidden;
+             background: linear-gradient(to right, rgba(26, 26, 26, 0.7), rgba(0, 0, 0, 0.7)),    
+                         url("img/background.jpg") no-repeat center center;
+             background-size: cover;
+             background-position: center 5%; /* Pushes image down */
+         }
+         .background-text {
+             font-family: 'Petrona', sans-serif;
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
+             pointer-events: none;
+             opacity: 0.1;
+             overflow: hidden;
+         }
+         .bg-text {
+             font-size: 20vw;
+             font-weight: 700;
+             color: #fff;
+             line-height: 0.8;
+             letter-spacing: 10px;
+             position: absolute;
+             transform: rotate(-10deg) translate(-50%, -50%);
+             top: -50%;
+             left: -20%;
+         }
+
+         .bg-text:nth-child(2) {
+             top: 50%;
+             left: 0;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+         .bg-text:nth-child(3) {
+             top: 150%;
+             left: 50%;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+         .bg-text:nth-child(4) {
+             top: 50%;
+             left: 100%;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+         .bg-text:nth-child(5) {
+             top: 150%;
+             left: 150%;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+
+
+/* ===== Shop Section ===== */
+.shop-section {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: white; /* Added background for consistency */
+}
+
+.hoodie-top {
+    width: 100%;
+    height: 553px;
+    object-fit: cover;
+    object-position: center -200px;
+    display: block;
+}
+
+.shop-container {
+    position: relative;
+    margin-top: -1100px;  /* small overlap with hoodie image */
+    background: white;
+    width: 100%;          /* shrink width for responsiveness */
+    max-width: 1200px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    z-index: 1;
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+
+.shop-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.shop-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.products-grid {
+    display: grid;
+    /* On desktop, this creates a flexible grid with 4-5 columns */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.product {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+.product:hover {
+    transform: translateY(-5px);
+}
+.product img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.product h3 {
+    margin-bottom: 5px;
+    color: #000;
+}
+.product p {
+    font-weight: bold;
+    color: #333;
+}
+
+.newsletter {
+             background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.8)),
+                         url('img/image.png') center/cover no-repeat;
+             color: #fff;
+             padding: 150px 10%;
+              position: relative;
+    z-index: 2; /* ensures it stays above the hero/shop bg */
+         }
+         .newsletter-content {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             flex-wrap: wrap;
+             gap: 20px;
+         }
+         .newsletter-form input {
+             font-family: 'Young Serif', serif;
+             padding: 12px;
+             border: none;
+             border-radius: 4px;
+             width: 250px;
+         }
+         .newsletter-form button {
+             font-family: 'Young Serif', serif;
+             padding: 12px 20px;
+             background: #000;
+             color: #fff;
+             border: none;
+             cursor: pointer;
+             border-radius: 4px;
+         }
+         .footer {
+             position: relative;
+             padding: 50px 10%;
+             font-family: 'Abhaya Libre', serif;
+             color: #fff;
+             background: linear-gradient(rgba(17,17,17,0.8), rgba(17,17,17,0.8)),
+                         url('img/background.jpg') center/cover no-repeat;
+             background-size: cover;
+             overflow: hidden; /* ensures bg-text stays inside */
+             background-position: center 3%; /* Pushes image down */
+         }
+
+         .footer .background-text {
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             pointer-events: none;
+             opacity: 0.05; /* fainter in footer */
+         }
+
+         .footer .bg-text {
+             font-size: 20vw;
+             font-weight: 700;
+             color: #fff;
+             line-height: 0.8;
+             letter-spacing: 10px;
+             position: absolute;
+             transform: rotate(-10deg) translate(-50%, -50%);
+         }
+
+         .footer .bg-text:nth-child(1) { top: -50%; left: -20%; }
+         .footer .bg-text:nth-child(2) { top: 50%; left: 0; }
+         .footer .bg-text:nth-child(3) { top: 150%; left: 50%; }
+         .footer .bg-text:nth-child(4) { top: 50%; left: 100%; }
+         .footer .bg-text:nth-child(5) { top: 150%; left: 150%; }
+
+         .footer-top {
+             display: flex;
+             flex-wrap: wrap;
+             justify-content: space-between;
+             gap: 40px;
+         }
+         .footer-logo h3 {
+             font-size: 2rem;
+         }
+         .social-icons a {
+             color: #fff;
+             margin-right: 10px;
+             font-size: 1.1rem;
+         }
+         .footer-links {
+             display: flex;
+             gap: 90px;
+         }
+         .footer-links a {
+             display: block;
+             color: #ccc;
+             margin-bottom: 6px;
+             text-decoration: none;
+         }
+         .footer-bottom {
+             margin-top: 30px;
+             border-top: 1px solid #444;
+             padding-top: 15px;
+             display: flex;
+             justify-content: space-between;
+         }
+        
+         /* Hide Hamburger and Close Icon by default on desktop */
+         .hamburger, .close-menu {
+             display: none;
+         }
+        
+         /* On Desktop, make nav-links a flex container to align the ul and icons */
+         .nav-links {
+             display: flex;
+             align-items: center;
+         }
+        
+         /* Popup directly under button */
+         .popup-inline {
+             display: none;
+             margin-top: 8px;
+             background: black;
+             color: white;
+             padding: 12px 20px;
+             border-radius: 4px;
+             font-size: 0.9rem;
+             text-align: center;
+             width: fit-content; /* adjust to content size */
+             animation: fadeIn 0.3s ease;
+         }
+
+         /* Fade animation */
+         @keyframes fadeIn {
+             from { opacity: 0; transform: translateY(-4px); }
+             to { opacity: 1; transform: translateY(0); }
+         }
+        
+.product {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-icons {
+    position: absolute;
+    top: 240px; /* lower than before */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center; /* center the icon group */
+    gap: 185px; /* closer together */
+    opacity: 0; /* hidden by default */
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.product-icons a {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.product-icons a:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* Show icons only on hover */
+.product:hover .product-icons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-link {
+    display: block; /* make the link a block element */
+    text-decoration: none; /* remove underline */
+    color: inherit; /* keep text color */
+}
+.product-link .product {
+    cursor: pointer; /* shows it’s clickable */
+    transition: transform 0.3s ease;
+}
+.product-link .product:hover {
+    transform: translateY(-5px);
+}
+
+
+main .main1 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.shop-section {
+    flex: 1; /* grows/shrinks with content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+
+
+.cart-link {
+    position: relative;
+}
+
+#cart-count {
+    background: white;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+}
+
+.favorite-btn {
+    color: #fff; /* bën ikonën fillimisht të bardhë */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.favorite-btn.fa-solid {
+    color: red; /* kur e klikojmë bëhet e kuqe */
+}
+
+
+/* ===== RESPONSIVE STYLES ====== */
+        @media (max-width: 1024px) {
+            .product-icons {
+                gap: 145px; /* closer together */
+            }
+        }
+
+         /* For Tablets and smaller devices (up to 992px) */
+         @media (max-width: 992px) {
+             /* FIXED: Changed .product-grid to .products-grid and set to 2 columns */
+             .products-grid {
+                 grid-template-columns: repeat(2, 1fr);
+             }
+             .footer-links {
+                 gap: 40px;
+             }
+             /* ⭐️ ADDED: Improved layout for shop section on tablets */
+             .hoodie-top {
+                height: 400px;
+                object-position: center -100px;
+             }
+             .shop-container {
+                margin-top: -300px;
+                width: 95%;
+             }
+             .product-icons {
+                gap: 277px; /* closer together */
+            }
+         }
+
+         /* For Mobile devices (up to 768px) */
+         @media (max-width: 768px) {
+             .navbar {
+                 padding: 15px 20px;
+             }
+             .content-box {
+                 width: 90%;
+                 left: 50%;
+                 top: 60%;
+             }
+             .footer .background-text {
+                 display: none;
+             }
+            
+             /* ADDED: Further improvements for mobile */
+             .hoodie-top {
+                height: 250px;
+                object-position: center; /* Center the image */
+             }
+             .shop-container {
+                margin-top: -985px; /* Less overlap on small screens */
+                width: 100%;
+                padding: 15px;
+             }
+             
+
+             /* --- MOBILE NAVIGATION --- */
+             .hamburger, .close-menu {
+                 display: block;
+                 cursor: pointer;
+                 font-size: 24px;
+                 z-index: 1001;
+             }
+            
+            
+             /* Make the nav container a slide-out menu */
+             .nav-links {
+                 position: fixed;
+                 top: 0;
+                 right: -100%;
+                 width: 70%;
+                 max-width: 280px;
+                 height: 100vh;
+                 background: #fff;
+                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                 transition: right 0.4s ease-in-out;
+                 z-index: 1000;
+                 display: flex;
+                 flex-direction: column;
+                 align-items: flex-start;
+                 padding: 20px;
+             }
+             .nav-links.active {
+                 right: 0;
+             }
+
+             .close-menu {
+                 align-self: flex-end; /* Position X to the top right */
+                 color: #000;
+                 font-size: 28px;
+             }
+            
+             /* Style the list of text links */
+             .nav-links ul {
+                 flex-direction: column;
+                 width: 100%;
+                 margin-top: 20px;
+                 /*position: static;  Remove absolute positioning */
+             }
+             .nav-links li {
+                 margin: 15px 0;
+                 margin-left: -60px;
+             }
+             .nav-links a {
+                 color: #000;
+                 font-size: 1.1em;
+             }
+             .nav-links a::after {
+                 background-color: #000;
+             }
+            
+
+             /* Style the icons container inside the menu */
+             .nav-links .nav-icons {
+                 margin-top: 400px;
+                 padding-top: 20px;
+                 border-top: 1px solid #eee;
+                 width: 100%;
+                 display: flex;
+                 justify-content: flex-start;
+             }
+            
+             /* Style the icons themselves */
+             .nav-links .nav-icons a {
+                 color: #000;
+                 font-size: 1.5em; /* Make icons bigger */
+                 margin-left: 0;
+                 margin-right: 30px; /* Space them out */
+             }
+             #cart-count {
+                 color: #fff;
+                 background: #000;
+             }
+            
+             /* --- OTHER SECTIONS --- */
+             .product-icons {
+                gap: 275px; /* closer together */
+                top: 150px;
+            }
+             .image-row, .footer-top, .footer-bottom {
+                 flex-direction: column;
+                 text-align: center;
+                 align-items: center;
+             }
+             .product img {
+                 width: 100%;
+                 height: 160px;
+                 background-size: cover;
+                 background-position: center;
+             }
+             .newsletter-content {
+                 flex-direction: column;
+                 text-align: center;
+             }
+             .newsletter-form input, .newsletter-form button {
+                 width: 100%;
+             }
+             .footer-links {
+                 flex-direction: column;
+                 gap: 30px;
+                 width: 100%;
+                 align-items: center;
+             }
+         }
+          /* For Mobile devices (up to 425px) */
+         @media (max-width: 425px) {
+            .product-icons {
+                gap: 105px; /* closer together */
+            }
+         }
+         /* For Mobile devices (up to 375px) */
+         @media (max-width: 375px) {
+            .product-icons {
+                gap: 80px; /* closer together */
+                
+            }
+         }
+          /* For Mobile devices (up to 320px) */
+         @media (max-width: 320px) {
+            .product-icons {
+                gap: 55px; /* closer together */
+                top: 150px;
+            }
+         }
+         
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">A&A</div>
+
+        <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+        
+        <nav class="nav-links">
+            <span class="close-menu"><i class="fa-solid fa-xmark"></i></span>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="shop.html?category=hoodies">HOODIES</a></li>
+                <li><a href="shop.html?category=tshirts">T-SHIRTS</a></li>
+                <li><a href="shop.html?category=accessories">ACCESSORIES</a></li>
+                <li><a href="shop.html?category=jackets">JACKETS</a></li>
+            </ul>
+            
+            <div class="nav-icons">
+                <a href="Login.php"><i class="fa-regular fa-user"></i></a>
+                <a href="favorites.php"><i class="fa-regular fa-heart"></i></a>
+                <a href="cart.php" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <main class="hero">
+        <div class="background-text">
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+        </div>
+    </main>
+
+    <main class="main1">
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <img src="img/background.jpg" alt="Hoodie" class="hoodie-top">
+        <div class="shop-container">
+            <h2 class="shop-title">SHOP</h2>
+            <div class="shop-filters">
+                <select id="category-select">
+                    <option value="">Category</option>
+                    <option value="hoodies">Hoodies</option>
+                    <option value="tshirts">T-Shirts</option>
+                    <option value="accessories">Accessories</option>
+                    <option value="jackets">Jackets</option>
+                </select>
+                <select id="price-select">
+                    <option value="">Price</option>
+                    <option value="low">Low to High</option>
+                    <option value="high">High to Low</option>
+                </select>
+            </div>
+            <div class="products-grid">
+                
+                 <div class="product" data-id="1" data-category="jackets" data-price="59">
+                    <a href="product.html?id=1">
+                        <img src="img/jackets/jacket1.jpg" alt="Rebel Denim Jacket">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Rebel Denim Jacket</h3>
+                    <p>$59.00</p>
+                </div>
+
+                <div class="product" data-id="2" data-category="tshirts" data-price="45">
+                    <a href="product.html?id=2">
+                        <img src="img/tshirt/5tshirt1.jpg" alt="Cool T-Shirt">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Cool T-Shirt</h3>
+                    <p>$45.00</p>
+                </div>
+
+                <div class="product" data-id="3" data-category="hoodies" data-price="49">
+                    <a href="product.html?id=3">
+                        <img src="img/hoodies/2hoodies1.jpg" alt="Stylish Hoodie">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Stylish Hoodie</h3>
+                    <p>$49.00</p>
+                </div>
+
+                <div class="product" data-id="4" data-category="jackets" data-price="75">
+                    <a href="product.html?id=4">
+                        <img src="img/jackets/3jacket1.jpg" alt="UrbanShield Jacket">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>UrbanShield Jacket</h3>
+                    <p>$75.00</p>
+                </div>
+
+                <div class="product" data-id="5" data-category="hoodies" data-price="39">
+                    <a href="product.html?id=5">
+                        <img src="img/hoodies/3hoodies1.jpg" alt="Trendy Hoodie">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Trendy Hoodie</h3>
+                    <p>$39.00</p>
+                </div>
+
+                <div class="product" data-id="6" data-category="jackets" data-price="119">
+                    <a href="product.html?id=6">
+                        <img src="img/jackets/2jacket2.jpg" alt="WinterGuard Jacket">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>WinterGuard Jacket</h3>
+                    <p>$119.00</p>
+                </div>
+
+                <div class="product" data-id="7" data-category="hoodies" data-price="49">
+                    <a href="product.html?id=7">
+                        <img src="img/hoodies/1hoodies1.jpg" alt="CozyWear Hoodie">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>CozyWear Hoodie</h3>
+                    <p>$49.00</p>
+                </div>
+
+                <div class="product" data-id="8" data-category="tshirts" data-price="35">
+                    <a href="product.html?id=8">
+                        <img src="img/tshirt/4tshirt1.jpg" alt="CoolFit T-Shirt">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>CoolFit T-Shirt</h3>
+                    <p>$35.00</p>
+                </div>
+
+                <div class="product" data-id="9" data-category="tshirts" data-price="45">
+                    <a href="product.html?id=9">
+                        <img src="img/tshirt/2tshirt1.jpg" alt="Stylish Hoodie">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>UrbanEdge T-Shirt</h3>
+                    <p>$45.00</p>
+                </div>
+
+                <div class="product" data-id="10" data-category="accessories" data-price="25">
+                    <a href="product.html?id=10">
+                        <img src="img/accessories/3glasses1.jpg" alt="StreetVision Sunglasses">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>StreetVision Sunglasses</h3>
+                    <p>$25.00</p>
+                </div>
+
+                <div class="product" data-id="11" data-category="jackets" data-price="75">
+                    <a href="product.html?id=11">
+                        <img src="img/jackets/5jacket1.jpg" alt="UrbanEdge Jacket">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>UrbanEdge Jacket</h3>
+                    <p>$75.00</p>
+                </div>
+
+                <div class="product" data-id="12" data-category="tshirts" data-price="29">
+                    <a href="product.html?id=12">
+                        <img src="img/tshirt/3tshirt1.jpg" alt="Summer T-Shirt">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Summer T-Shirt</h3>
+                    <p>$29.00</p>
+                </div>
+
+                <div class="product" data-id="13" data-category="jackets" data-price="65">
+                    <a href="product.html?id=13">
+                        <img src="img/jackets/6jacket1.jpg" alt="NightRider Jacket">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>NightRider Jacket</h3>
+                    <p>$65.00</p>
+                </div>
+
+                <div class="product" data-id="14" data-category="accessories" data-price="29">
+                    <a href="product.html?id=14">
+                        <img src="img/accessories/1glasses1.jpg" alt="UrbanEdge Sunglasses">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>UrbanEdge Sunglasses</h3>
+                    <p>$29.00</p>
+                </div>
+
+                <div class="product" data-id="15" data-category="hoodies" data-price="39">
+                    <a href="product.html?id=15">
+                        <img src="img/hoodies/4hoodies1.jpg" alt="UrbanPulse Hoodie">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>UrbanPulse Hoodie</h3>
+                    <p>$39.00</p>
+                </div>
+
+                <div class="product" data-id="16" data-category="jackets" data-price="89">
+                    <a href="product.html?id=16">
+                        <img src="img/jackets/4jacket1.jpg" alt="Skyline Jacket">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Skyline Jacket</h3>
+                    <p>$89.00</p>
+                </div>
+                
+                <div class="product" data-id="17" data-category="accessories" data-price="20">
+                    <a href="product.html?id=17">
+                        <img src="img/accessories/1hat1.jpg" alt="CozyBeanie Hat">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>CozyBeanie Hat</h3>
+                    <p>$20.00</p>
+                </div>
+
+                <div class="product" data-id="18" data-category="accessories" data-price="25">
+                    <a href="product.html?id=18">
+                        <img src="img/accessories/1accessories1.jpg" alt="UrbanEdge Chain">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>UrbanEdge Chain</h3>
+                    <p>$25.00</p>
+                </div>
+
+                <div class="product" data-id="19" data-category="accessories" data-price="20">
+                    <a href="product.html?id=19">
+                        <img src="img/accessories/2glasses1.jpg" alt="RetroRound Glasses">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>RetroRound Glasses</h3>
+                    <p>$20.00</p>
+                </div>
+
+                <div class="product" data-id="20" data-category="accessories" data-price="19">
+                    <a href="product.html?id=20">
+                        <img src="img/accessories/2hat1.jpg" alt="Classic Hat">
+                    </a>
+                    <div class="product-icons">
+                        <i class="fa-regular fa-heart favorite-btn"></i>
+                        <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    </div>
+                    <h3>Classic Hat</h3>
+                    <p>$19.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+   
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <div class="newsletter-text">
+                <h2>Get 20% OFF on your first purchase</h2>
+                <p>Sign up for our newsletter and never miss any offers</p>
+            </div>
+            <form id="newsletter-form" class="newsletter-form" action="newsletter.php" method="post">
+            <input type="email" name="email" placeholder="Your email address" required>
+            <button type="submit">SUBSCRIBE NOW</button>
+        </form>
+            <div id="subscribe-popup" class="popup-inline">You subscribed!</div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="background-text">
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+            <span class="bg-text">A&A</span>
+        </div>
+        <div class="footer-top">
+            <div class="footer-logo">
+                <h3>A&A</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div>
+                    <h4>QUICK LINKS</h4>
+                    <a href="#">Home</a>
+                    <a href="#">About us</a>
+                    <a href="#">Offers</a>
+                    <a href="#">Services</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div>
+                    <h4>ABOUT</h4>
+                    <a href="#">How It Work</a>
+                    <a href="#">Our Packages</a>
+                    <a href="#">Promotions</a>
+                    <a href="#">Refer A Friend</a>
+                </div>
+                <div>
+                    <h4>HELP CENTER</h4>
+                    <a href="#">Payments</a>
+                    <a href="#">Shipping</a>
+                    <a href="#">Product Returns</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Check out</a>
+                    <a href="#">Other Issues</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 A&A. All rights reserved.</p>
+            <p>Designed & Developed by <strong>Amar Abdurrahmani</strong></p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+
+    
+<script>
+
+const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        const closeMenu = document.querySelector(".close-menu");
+        
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.add("active");
+        });
+
+        closeMenu.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+        });
+
+
+
+document.querySelectorAll(".favorite-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+        const product = this.closest(".product");
+        const productId = product.dataset.id;
+
+        fetch("actions.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "action=toggle_favorite&product_id=" + productId
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "added") {
+                this.classList.remove("fa-regular");
+                this.classList.add("fa-solid");
+                this.style.color = "red";
+            } else {
+                this.classList.remove("fa-solid");
+                this.classList.add("fa-regular");
+                this.style.color = "#fff";
+            }
+        });
+    });
+});
+
+document.querySelectorAll(".cart-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+        const product = this.closest(".product");
+        const productId = product.dataset.id;
+
+        fetch("actions.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "action=add_cart&product_id=" + productId
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "added") {
+                this.style.color = "green"; // make cart icon green
+
+                // update navbar counter
+                const cartCountEl = document.getElementById("cart-count");
+                cartCountEl.textContent = data.cart_count;
+            } else if (data.status === "exists") {
+                alert("This product is already in your cart!");
+            }
+        });
+    });
+});
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    const cartCountEl = document.getElementById("cart-count");
+
+    fetch("actions.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "action=get_cart_count"
+    })
+    .then(res => res.json())
+    .then(data => {
+        cartCountEl.textContent = data.cart_count ?? 0;
+    });
+});
+
+
+        
+        
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
